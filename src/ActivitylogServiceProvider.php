@@ -5,6 +5,7 @@ namespace Spatie\Activitylog;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Activitylog\Models\Activity;
+use Spatie\Activitylog\Contracts\Activity as ActivityInterface;
 use Spatie\Activitylog\Exceptions\InvalidConfiguration;
 
 class ActivitylogServiceProvider extends ServiceProvider
@@ -43,7 +44,7 @@ class ActivitylogServiceProvider extends ServiceProvider
     {
         $activityModel = config('activitylog.activity_model') ?? Activity::class;
 
-        if (! is_a($activityModel, Activity::class, true)) {
+        if (!$activityModel instanceof ActivityInterface) {
             throw InvalidConfiguration::modelIsNotValid($activityModel);
         }
 
