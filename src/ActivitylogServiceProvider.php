@@ -44,7 +44,7 @@ class ActivitylogServiceProvider extends ServiceProvider
     {
         $activityModel = config('activitylog.activity_model') ?? Activity::class;
 
-        if (!$activityModel instanceof ActivityInterface) {
+        if (! is_subclass_of($activityModel, ActivityInterface::class)) {
             throw InvalidConfiguration::modelIsNotValid($activityModel);
         }
 
